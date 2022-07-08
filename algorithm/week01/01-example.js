@@ -8,3 +8,7 @@ while(result <= max){
 }
 
 console.log(cnt + 1)
+
+
+//git token
+//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
