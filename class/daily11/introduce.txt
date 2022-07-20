@@ -1,0 +1,11 @@
+
+ - Nest.js를 이해하기 위한
+
+1. 클래스를 활용한 효율적인 API 만들기
+ - 상품 구매 API
+ - 상품 환불 API
+ - 쿠폰 구매 API
+2. 실무적인 폴더구조 만들기(MVC)
+ - Model View Controller(service)
+3. express의 노가다 알아보기
+4. DI(Dependency Injection)[의존성 주입] 이해하기
