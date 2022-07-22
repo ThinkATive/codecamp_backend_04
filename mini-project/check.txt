@@ -1,0 +1,32 @@
+------------완료------------
+=== 빽 ===
+1. API: POST /user
+2. API: GET /user
+3. API: POST /tokens/phone
+4. API: PATCH /tokens/phone
+5. API: GET /starbucks
+
+=== 프론트 ===
+1. 인증번호전송, 인증완료, 회원가입 기능 완료
+2. 회원목록 페이지, 커피 목록 페이지
+
+=== 크롤링 ===
+1. 병음료 빼고 모든 커피 완료.
+2. DB 저장 완료.
+----------------------------
+
+
+=== 빽 ===
+DONE.
+
+=== 프론트 ===
+DONE.
+
+=== 크롤링 ===
+DONE.
+
+=== Swagger ===
+DONE.
+
+=== PipeLine ===
+DONE.
