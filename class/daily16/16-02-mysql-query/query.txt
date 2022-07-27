@@ -1,0 +1,70 @@
+show databases
+;
+
+use mydocker04
+;
+
+show tables
+;
+
+desc product
+;
+
+select *
+  from product
+;
+
+insert into product(id, name, description, price, isSoldout)
+     values(uuid(), "마우스", "정말 좋은 마우스입니다.", 15000, false)
+;
+
+insert into product(id, name, description, price, isSoldout)
+     values(uuid(), "노트북", "최신 맥북", 20000, false)
+;
+
+select *
+  from product_saleslocation
+;
+
+insert into product_saleslocation(id, address, addressDetail, lat, lng, meetingTime)
+     values(uuid(), "구로구", "구로디지털단지", "0.0", "0.1", "2022-12-31")
+;
+
+update product
+   set price = 18000
+ where name = "마우스"
+;
+
+update product
+   set productSaleslocationId = "3042e869-0bf1-11ed-a2ea-0242ac150002"
+ where name = "마우스"
+;
+
+// 최종 연결
+select p.id, name, price, address, addressDetail as "상세주소"
+  from product p, product_saleslocation ps
+ where p.productSaleslocationId = ps.id
+;
+
+// 추가 기능 and
+update product
+   set isSoldout = true
+ where name = "노트북"
+   and price = 20000
+;
+
+// 추가 기능 or
+update product
+   set price = 5000
+ where name = "노트북"
+    or name = "키보드"
+;
+
+select *
+  from product
+;
+
+
+// 추가적인 부분
+
+order by (default asc)

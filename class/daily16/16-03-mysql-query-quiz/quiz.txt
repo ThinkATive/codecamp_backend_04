@@ -1,0 +1,22 @@
+insert into product_category(id, name)
+     values (uuid(), "전자제품")
+;
+
+insert into product_category(id, name)
+     values (uuid(), "음식")
+;
+
+insert into product_category(id, name)
+     values (uuid(), "카테고리")
+;
+
+update product
+   set productCategoryId = "14f7bf9e-0bf8-11ed-a2ea-0242ac150002"
+ where name = "마우스"
+    or name = "노트북"
+;
+
+select p.name, pc.name as "카테고리"
+  from product p, product_category pc
+ where p.productCategoryId = pc.id
+;
