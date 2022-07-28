@@ -1,0 +1,182 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Board {
+  number: Int!
+  writer: String!
+  title: String!
+  contents: String!
+}
+
+type Basket {
+  id: String!
+  totalprice: Int!
+  numberofproduct: Int!
+  brandname: String!
+}
+
+type Brand {
+  id: String!
+  brandname: String!
+}
+
+type Color {
+  id: String!
+  colorname: String!
+  products: [Product!]!
+}
+
+type Gender {
+  id: String!
+  gender: String!
+  products: [Product!]!
+}
+
+type Material {
+  id: String!
+  material: String!
+  products: [Product!]!
+}
+
+type DeliveryServiceCompany {
+  id: String!
+  deliveryservicecompany: String!
+}
+
+type DeliveryCondition {
+  id: String!
+  deliverycondition: String!
+  deliveryservicecompany: DeliveryServiceCompany!
+}
+
+type PaymentType {
+  id: String!
+  type: String!
+}
+
+type PaymentInfo {
+  id: String!
+  date: DateTime!
+  price: Int!
+  cardnumber: String!
+  name: String!
+  depositaccount: String!
+  paidphonenumber: String!
+  cardname: String!
+  bankname: String!
+  paymenttype: PaymentType!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  id: String!
+  isadmin: Boolean!
+  name: String!
+  phonenumber: String!
+  email: String!
+  address: String!
+  gender: String!
+  signupdate: DateTime!
+  residentregistrationnumber: String!
+  basket: Basket!
+}
+
+type Order {
+  id: String!
+  totalprice: Int!
+  receiver: String!
+  receiveadress: String!
+  phonenumber: String!
+  orderdate: String!
+  request: String!
+  productamount: Int!
+  user: User!
+  deliverycondition: DeliveryCondition!
+  paymentinfo: PaymentInfo!
+  products: [Product!]!
+}
+
+type MainCategory {
+  id: String!
+  maincategory: String!
+}
+
+type SubCategory {
+  id: String!
+  subcategory: String!
+  maincategory: MainCategory!
+}
+
+type Season {
+  id: String!
+  seasonname: String!
+}
+
+type Size {
+  id: String!
+  size: String!
+  products: [Product!]!
+}
+
+type Product {
+  id: String!
+  name: String!
+  price: Int!
+  description: String!
+  productnumber: String!
+  discount: Int!
+  like: Int!
+  productiondate: DateTime!
+  stock: Boolean!
+  interested: Boolean!
+  brand: Brand!
+  season: Season!
+  subcategory: SubCategory!
+  basket: Basket!
+  orders: [Order!]!
+  colors: [Color!]!
+  sizes: [Size!]!
+  genders: [Gender!]!
+  materials: [Material!]!
+}
+
+type Query {
+  fetchBoards: [Board!]!
+  fetchProducts: [Product!]!
+  fetchProduct(productId: String!): Product!
+}
+
+type Mutation {
+  createBoard(createBoardInput: CreateBoardInput!): String!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
+}
+
+input CreateBoardInput {
+  writer: String!
+  title: String!
+  contents: String!
+}
+
+input CreateProductInput {
+  name: String!
+  price: Int!
+  description: String!
+  productnumber: String!
+  discount: Int!
+  productiondate: DateTime!
+}
+
+input UpdateProductInput {
+  name: String
+  price: Int
+  description: String
+  productnumber: String
+  discount: Int
+  productiondate: DateTime
+}
