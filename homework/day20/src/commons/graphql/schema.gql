@@ -1,0 +1,227 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Board {
+  number: Int!
+  writer: String!
+  title: String!
+  contents: String!
+}
+
+type ProductBrand {
+  id: String!
+  brandName: String!
+}
+
+type ProductGender {
+  id: String!
+  gender: String!
+  products: [Product!]!
+}
+
+type ProductMaterial {
+  id: String!
+  material: String!
+  products: [Product!]!
+}
+
+type DeliveryServiceCompany {
+  id: String!
+  deliveryservicecompany: String!
+}
+
+type DeliveryCondition {
+  id: String!
+  deliverycondition: String!
+  deliveryservicecompany: DeliveryServiceCompany!
+}
+
+type PaymentType {
+  id: String!
+  type: String!
+}
+
+type PaymentInfo {
+  id: String!
+  date: DateTime!
+  price: Int!
+  cardnumber: String!
+  name: String!
+  depositaccount: String!
+  paidphonenumber: String!
+  cardname: String!
+  bankname: String!
+  paymenttype: PaymentType!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  id: String!
+  isAdmin: Boolean!
+  name: String!
+  phonenumber: String!
+  email: String!
+  address: String!
+  gender: String!
+  residentregistrationnumber: String!
+}
+
+type Order {
+  id: String!
+  totalprice: Int!
+  receiver: String!
+  receiveadress: String!
+  phonenumber: String!
+  orderdate: String!
+  request: String!
+  productamount: Int!
+  user: User!
+  deliverycondition: DeliveryCondition!
+  paymentinfo: PaymentInfo!
+  products: [Product!]!
+}
+
+type ProductMainCategory {
+  id: String!
+  productMainCategoryName: String!
+}
+
+type ProductSubCategory {
+  id: String!
+  productSubCategoryName: String!
+  productMainCategory: ProductMainCategory!
+}
+
+type ProductSeason {
+  id: String!
+  seasonName: String!
+}
+
+type ProductSize {
+  id: String!
+  size: String!
+  products: [Product!]!
+}
+
+type Product {
+  id: String!
+  productName: String!
+  productPrice: Int!
+  productDescription: String!
+  productSerialNumber: String!
+  productDiscount: Int!
+  productPeopleLiked: Int!
+  productManufactureDate: DateTime!
+  isStock: Boolean!
+  productPeopleInterested: Boolean!
+  productBrand: ProductBrand!
+  productSeason: ProductSeason!
+  productSubCategory: ProductSubCategory!
+  orders: [Order!]!
+  productColors: [ProductColor!]!
+  productSizes: [ProductSize!]!
+  productGenders: [ProductGender!]!
+  productMaterials: [ProductMaterial!]!
+}
+
+type ProductColor {
+  id: String!
+  color: String!
+  products: [Product!]!
+}
+
+type ProductBasket {
+  id: String!
+  totalPrice: Int!
+  numberOfProduct: Int!
+  brandName: String
+}
+
+type Query {
+  fetchUsers: [User!]!
+  fetchUser(userId: String!): User!
+  fetchUsersWithDeleted: [User!]!
+  fetchLoginUser: User!
+  fetchBoards: [Board!]!
+  fetchProducts: [Product!]!
+  fetchProduct(productId: String!): Product!
+  fetchProductsWithDeleted: [Product!]!
+}
+
+type Mutation {
+  login(email: String!, password: String!): String!
+  createUser(name: String!, phonenumber: String!, email: String!, address: String!, gender: String!, password: String!, residentregistrationnumber: String!): User!
+  updateUser(userId: String!, updateUserInput: UpdateUserInput!): User!
+  deleteUser(userId: String!): Boolean!
+  restoreUser(userId: String!): Boolean!
+  updateUserPwd(newPassword: String!): String!
+  deleteLoginUser(wantToDelete: Boolean!): Boolean!
+  createBoard(createBoardInput: CreateBoardInput!): String!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(productId: String!, updateProductInput: UpdateProductInput!): Product!
+  deleteProduct(productId: String!): Boolean!
+  restoreProduct(productId: String!): Boolean!
+  createProductBrand(brandName: String!): ProductBrand!
+  createProductBasket(productBasketInput: String!): ProductBasket!
+  createProductSeason(seasonName: String!): ProductSeason!
+  createProductSubCategory(createProductSubCategoryInput: CreateProductSubCategoryInput!): ProductSubCategory!
+  createProductMainCategory(productMainCategoryName: String!): ProductMainCategory!
+}
+
+input UpdateUserInput {
+  name: String
+  phonenumber: String
+  email: String
+  address: String
+  gender: String
+  password: String
+  residentregistrationnumber: String
+}
+
+input CreateBoardInput {
+  writer: String!
+  title: String!
+  contents: String!
+}
+
+input CreateProductInput {
+  productName: String!
+  productPrice: Int!
+  productDescription: String!
+  productSerialNumber: String!
+  productDiscount: Int!
+  productManufactureDate: DateTime!
+  productBrandId: String!
+  productSeasonId: String!
+  productSubCategoryId: String!
+  productMaterials: [String!]!
+  productColors: [String!]!
+  productSizes: [String!]!
+  productGenders: [String!]!
+}
+
+input UpdateProductInput {
+  productName: String
+  productPrice: Int
+  productDescription: String
+  productSerialNumber: String
+  productDiscount: Int
+  productManufactureDate: DateTime
+  productBrandId: String
+  productSeasonId: String
+  productSubCategoryId: String
+  productMaterials: [String!]
+  productColors: [String!]
+  productSizes: [String!]
+  productGenders: [String!]
+}
+
+input CreateProductSubCategoryInput {
+  productSubCategoryName: String!
+  productMainCategoryId: String!
+}
