@@ -6,7 +6,6 @@ import { JwtRefreshStrategy } from 'src/commons/auth/jwt-refresh.strategy';
 import { JwtGoogleStrategy } from 'src/commons/auth/jwt-social-google.strategy';
 import { JwtKakaoStrategy } from 'src/commons/auth/jwt-social-kakao.strategy';
 import { JwtNaverStrategy } from 'src/commons/auth/jwt-social-naver.strategy';
-import { HttpExceptionFilter } from 'src/commons/filter/http-exception.filter';
 import { User } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 import { AuthsController } from './auths.controller';
@@ -21,7 +20,6 @@ import { AuthsService } from './auths.service';
     ]),
   ],
   providers: [
-    HttpExceptionFilter,
     JwtAccessStrategy,
     JwtRefreshStrategy,
     JwtGoogleStrategy,

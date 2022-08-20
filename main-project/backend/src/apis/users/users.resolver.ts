@@ -1,10 +1,8 @@
-import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UpdateUserInput } from './dto/updateUser.input';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 import * as bcrypt from 'bcrypt';
-import { UseGuards } from '@nestjs/common';
-import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
 
 @Resolver()
 export class UsersResolver {
@@ -21,7 +19,7 @@ export class UsersResolver {
   fetchUser(
     @Args('userId') userId: string, //
   ) {
-    return this.usersService.findOne({ userId });
+    return this.usersService.findOneById({ userId });
   }
 
   @Query(() => [User])
@@ -29,34 +27,26 @@ export class UsersResolver {
     return this.usersService.findAllWithDeleted();
   }
 
-  @UseGuards(GqlAuthAccessGuard)
-  @Query(() => User)
-  fetchLoginUser(
-    @Context() context: any, //
-  ) {
-    const userId = context.req.user.id;
-    return this.usersService.findOne({ userId });
-  }
-
   @Mutation(() => User)
   async createUser(
-    @Args('name') name: string,
-    @Args('phonenumber') phonenumber: string,
-    @Args('email') email: string,
-    @Args('address') address: string,
-    @Args('gender') gender: string,
-    @Args('password') password: string,
-    @Args('residentregistrationnumber') residentregistrationnumber: string,
+    @Args('userName') userName: string,
+    @Args('userPhone') userPhone: string,
+    @Args('userEmail') userEmail: string,
+    @Args('userAddress') userAddress: string,
+    @Args('userGender') userGender: string,
+    @Args('userPassword') userPassword: string,
+    @Args('userResidentNumber') userResidentNumber: string,
   ) {
-    const hashedPassword = await bcrypt.hash(password, 8);
+    const hashedPassword = await bcrypt.hash(userPassword, 7);
+
     return this.usersService.create({
-      name,
-      phonenumber,
-      email,
-      address,
-      gender,
+      userName,
+      userPhone,
+      userEmail,
+      userAddress,
+      userGender,
       hashedPassword,
-      residentregistrationnumber,
+      userResidentNumber,
     });
   }
 
@@ -82,28 +72,5 @@ export class UsersResolver {
     @Args('userId') userId: string, //
   ) {
     return this.usersService.restore({ userId });
-  }
-
-  @UseGuards(GqlAuthAccessGuard)
-  @Mutation(() => String)
-  async updateUserPwd(
-    @Args('newPassword') newPassword: string,
-    @Context() context: any,
-  ) {
-    const newHashedPassword = await bcrypt.hash(newPassword, 8);
-    const userId = context.req.user.id;
-    return this.usersService.updatePWD({ userId, newHashedPassword });
-  }
-
-  @UseGuards(GqlAuthAccessGuard)
-  @Mutation(() => Boolean)
-  deleteLoginUser(
-    @Args('wantToDelete') wantToDelete: boolean,
-    @Context() context: any,
-  ) {
-    if (wantToDelete) {
-      const userId = context.req.user.id;
-      return this.usersService.delete({ userId });
-    } else return false;
   }
 }

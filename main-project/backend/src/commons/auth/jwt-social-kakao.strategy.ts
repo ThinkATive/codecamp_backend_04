@@ -18,13 +18,13 @@ export class JwtKakaoStrategy extends PassportStrategy(Strategy, 'kakao') {
     console.log(profile);
 
     return {
-      name: profile.username,
-      phonenumber: '010-1122-3344',
-      email: profile._json.kakao_account.email,
-      address: '어딘가',
-      gender: '여',
+      userName: profile.username,
+      userPhone: '010-1122-3344',
+      userEmail: profile._json.kakao_account.email,
+      userAddress: '어딘가',
+      userGender: '여',
       hashedPassword: '1234',
-      residentregistrationnumber: '23948239',
+      userResidentNumber: '23948239',
     };
   }
 }

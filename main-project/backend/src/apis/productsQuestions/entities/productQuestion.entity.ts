@@ -3,6 +3,7 @@ import { ProductAnswer } from 'src/apis/productsAnswers/entities/productAnswer.e
 import { User } from 'src/apis/users/entities/user.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -16,13 +17,13 @@ export class ProductQuestion {
   id: string;
 
   @Column()
-  title: string;
+  questionTitle: string;
 
   @Column()
-  content: string;
+  questionContent: string;
 
-  @Column()
-  date: string;
+  @CreateDateColumn()
+  createdAt: string;
 
   @ManyToOne(() => Product)
   product: Product;
@@ -32,5 +33,5 @@ export class ProductQuestion {
 
   @JoinColumn()
   @OneToOne(() => ProductAnswer)
-  productanswer: ProductAnswer;
+  productAnswer: ProductAnswer;
 }

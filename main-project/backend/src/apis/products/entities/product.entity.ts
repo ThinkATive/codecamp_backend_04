@@ -1,13 +1,13 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { ProductBasket } from 'src/apis/baskets/entities/productBasket.entity';
-import { ProductBrand } from 'src/apis/brands/entities/productBrand.entity';
-import { ProductColor } from 'src/apis/colors/entities/color.entity';
-import { ProductGender } from 'src/apis/genders/entities/gender.entity';
-import { ProductMaterial } from 'src/apis/materials/entities/material.entity';
+import { Brand } from 'src/apis/brands/entities/brand.entity';
+import { Color } from 'src/apis/colors/entities/color.entity';
+import { Gender } from 'src/apis/genders/entities/gender.entity';
+import { Material } from 'src/apis/materials/entities/material.entity';
 import { Order } from 'src/apis/orders/entities/order.entity';
 import { ProductSubCategory } from 'src/apis/productsSubCategories/entities/productSubCategory.entity';
-import { ProductSeason } from 'src/apis/seasons/entities/productSeason.entity';
-import { ProductSize } from 'src/apis/sizes/entities/size.entity';
+import { Season } from 'src/apis/seasons/entities/season.entity';
+import { Size } from 'src/apis/sizes/entities/size.entity';
 import {
   Column,
   DeleteDateColumn,
@@ -16,6 +16,7 @@ import {
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -27,83 +28,83 @@ export class Product {
 
   @Column()
   @Field(() => String)
-  productName: string;
+  name: string;
 
   @Column()
   @Field(() => Int)
-  productPrice: number;
+  price: number;
 
   @Column()
   @Field(() => String)
-  productDescription: string;
+  description: string;
 
-  @Column()
-  @Field(() => String)
-  productSerialNumber: string;
+  // @Column()
+  // @Field(() => String)
+  // productSerialNumber: string;
 
-  @Column({ default: 0 })
-  @Field(() => Int)
-  productDiscount: number;
+  // @Column({ default: 0 })
+  // @Field(() => Int)
+  // productDiscount: number;
 
-  @Column({ default: 0 })
-  @Field(() => Int)
-  productPeopleLiked: number;
+  // @Column({ default: 0 })
+  // @Field(() => Int)
+  // productPeopleLiked: number;
 
-  @Column()
-  @Field(() => Date)
-  productManufactureDate: Date;
+  // @Column()
+  // @Field(() => Date)
+  // productManufactureDate: Date;
 
-  @Column({ default: true })
-  @Field(() => Boolean)
-  isStock: boolean;
+  @UpdateDateColumn()
+  updatedAt: Date;
 
-  @Column({ default: 0 })
-  @Field(() => Boolean)
-  productPeopleInterested: boolean;
+  // @Column({ default: true })
+  // @Field(() => Boolean)
+  // isStock: boolean;
 
-  @ManyToOne(() => ProductBrand)
-  @Field(() => ProductBrand)
-  productBrand: ProductBrand;
+  // @Column({ default: 0 })
+  // @Field(() => Boolean)
+  // productPeopleInterested: boolean;
 
-  @ManyToOne(() => ProductSeason)
-  @Field(() => ProductSeason)
-  productSeason: ProductSeason;
+  // @ManyToOne(() => Brand)
+  // @Field(() => Brand)
+  // brand: Brand;
 
-  @ManyToOne(() => ProductSubCategory)
-  @Field(() => ProductSubCategory)
-  productSubCategory: ProductSubCategory;
+  // @ManyToOne(() => Season)
+  // @Field(() => Season)
+  // season: Season;
 
-  // @ManyToOne(() => ProductBasket)
-  // @Field(() => ProductBasket)
-  // basket: ProductBasket;
+  // @ManyToOne(() => ProductSubCategory)
+  // @Field(() => ProductSubCategory)
+  // productSubCategory: ProductSubCategory;
+
+  // // @ManyToOne(() => ProductBasket)
+  // // @Field(() => ProductBasket)
+  // // basket: ProductBasket;
 
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @ManyToMany(() => Order, (orders) => orders.products)
-  @Field(() => [Order])
-  orders: Order[];
+  // @ManyToMany(() => Order, (orders) => orders.products)
+  // @Field(() => [Order])
+  // orders: Order[];
 
-  @JoinTable()
-  @ManyToMany(() => ProductColor, (productColors) => productColors.products)
-  @Field(() => [ProductColor])
-  productColors: ProductColor[];
+  // @JoinTable()
+  // @ManyToMany(() => Color, (colors) => colors.products)
+  // @Field(() => [Color])
+  // colors: Color[];
 
-  @JoinTable()
-  @ManyToMany(() => ProductSize, (productSizes) => productSizes.products)
-  @Field(() => [ProductSize])
-  productSizes: ProductSize[];
+  // @JoinTable()
+  // @ManyToMany(() => Size, (sizes) => sizes.products)
+  // @Field(() => [Size])
+  // sizes: Size[];
 
-  @JoinTable()
-  @ManyToMany(() => ProductGender, (productGenders) => productGenders.products)
-  @Field(() => [ProductGender])
-  productGenders: ProductGender[];
+  // @JoinTable()
+  // @ManyToMany(() => Gender, (genders) => genders.products)
+  // @Field(() => [Gender])
+  // genders: Gender[];
 
-  @JoinTable()
-  @ManyToMany(
-    () => ProductMaterial,
-    (productMaterials) => productMaterials.products,
-  )
-  @Field(() => [ProductMaterial])
-  productMaterials: ProductMaterial[];
+  // @JoinTable()
+  // @ManyToMany(() => Material, (materials) => materials.products)
+  // @Field(() => [Material])
+  // materials: Material[];
 }

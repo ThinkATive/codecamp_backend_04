@@ -1,10 +1,10 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ProductColor } from '../colors/entities/color.entity';
-import { ProductGender } from '../genders/entities/gender.entity';
-import { ProductMaterial } from '../materials/entities/material.entity';
-import { ProductSize } from '../sizes/entities/size.entity';
+import { Color } from '../colors/entities/color.entity';
+import { Gender } from '../genders/entities/gender.entity';
+import { Material } from '../materials/entities/material.entity';
+import { Size } from '../sizes/entities/size.entity';
 import { Product } from './entities/product.entity';
 
 @Injectable()
@@ -12,26 +12,26 @@ export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private readonly productsRepository: Repository<Product>,
-    @InjectRepository(ProductMaterial)
-    private readonly productMaterialRepository: Repository<ProductMaterial>,
-    @InjectRepository(ProductColor)
-    private readonly productColorRepository: Repository<ProductColor>,
-    @InjectRepository(ProductSize)
-    private readonly productSizeRepository: Repository<ProductSize>,
-    @InjectRepository(ProductGender)
-    private readonly productGenderRepository: Repository<ProductGender>,
+    @InjectRepository(Material)
+    private readonly materialRepository: Repository<Material>,
+    @InjectRepository(Color)
+    private readonly colorRepository: Repository<Color>,
+    @InjectRepository(Size)
+    private readonly sizeRepository: Repository<Size>,
+    @InjectRepository(Gender)
+    private readonly genderRepository: Repository<Gender>,
   ) {}
 
   findAll() {
     return this.productsRepository.find({
       relations: [
         'productSubCategory',
-        'productBrand',
-        'productSeason',
-        'productMaterials',
-        `productColors`,
-        `productSizes`,
-        `productGenders`,
+        'brand',
+        'season',
+        'materials',
+        `colors`,
+        `sizes`,
+        `genders`,
       ],
     });
   }
@@ -41,12 +41,12 @@ export class ProductsService {
       where: { id: productId },
       relations: [
         'productSubCategory',
-        'productBrand',
-        'productSeason',
-        'productMaterials',
-        `productColors`,
-        `productSizes`,
-        `productGenders`,
+        'brand',
+        'season',
+        'materials',
+        `colors`,
+        `sizes`,
+        `genders`,
       ],
     });
   }
@@ -56,97 +56,97 @@ export class ProductsService {
       withDeleted: true,
       relations: [
         'productSubCategory',
-        'productBrand',
-        'productSeason',
-        'productMaterials',
-        `productColors`,
-        `productSizes`,
-        `productGenders`,
+        'brand',
+        'season',
+        'materials',
+        `colors`,
+        `sizes`,
+        `genders`,
       ],
     });
   }
 
   async create({ createProductInput }) {
     const {
-      productBrandId,
-      productSeasonId,
+      brandId,
+      seasonId,
       productSubCategoryId,
-      productMaterials,
-      productColors,
-      productSizes,
-      productGenders,
+      materials,
+      colors,
+      sizes,
+      genders,
       ...product
     } = createProductInput;
 
-    const materialList = [];
-    for (let i = 0; i < productMaterials.length; i++) {
-      const prevMaterial = await this.productMaterialRepository.findOne({
-        where: { material: productMaterials[i] },
-      });
+    // const materialList = [];
+    // for (let i = 0; i < materials.length; i++) {
+    //   const prevMaterial = await this.materialRepository.findOne({
+    //     where: { materialName: materials[i] },
+    //   });
 
-      if (prevMaterial) materialList.push(prevMaterial);
-      else {
-        const newMaterial = await this.productMaterialRepository.save({
-          material: productMaterials[i],
-        });
-        materialList.push(newMaterial);
-      }
-    }
+    //   if (prevMaterial) materialList.push(prevMaterial);
+    //   else {
+    //     const newMaterial = await this.materialRepository.save({
+    //       materialName: materials[i],
+    //     });
+    //     materialList.push(newMaterial);
+    //   }
+    // }
 
-    const colorList = [];
-    for (let i = 0; i < productColors.length; i++) {
-      const prevColor = await this.productColorRepository.findOne({
-        where: { color: productColors[i] },
-      });
+    // const colorList = [];
+    // for (let i = 0; i < colors.length; i++) {
+    //   const prevColor = await this.colorRepository.findOne({
+    //     where: { colorName: colors[i] },
+    //   });
 
-      if (prevColor) materialList.push(prevColor);
-      else {
-        const newColor = await this.productColorRepository.save({
-          color: productColors[i],
-        });
-        colorList.push(newColor);
-      }
-    }
+    //   if (prevColor) colorList.push(prevColor);
+    //   else {
+    //     const newColor = await this.colorRepository.save({
+    //       colorName: colors[i],
+    //     });
+    //     colorList.push(newColor);
+    //   }
+    // }
 
-    const sizeList = [];
-    for (let i = 0; i < productSizes.length; i++) {
-      const prevSize = await this.productSizeRepository.findOne({
-        where: { size: productSizes[i] },
-      });
+    // const sizeList = [];
+    // for (let i = 0; i < sizes.length; i++) {
+    //   const prevSize = await this.sizeRepository.findOne({
+    //     where: { sizeName: sizes[i] },
+    //   });
 
-      if (prevSize) sizeList.push(prevSize);
-      else {
-        const newSize = await this.productSizeRepository.save({
-          size: productSizes[i],
-        });
-        sizeList.push(newSize);
-      }
-    }
+    //   if (prevSize) sizeList.push(prevSize);
+    //   else {
+    //     const newSize = await this.sizeRepository.save({
+    //       sizeName: sizes[i],
+    //     });
+    //     sizeList.push(newSize);
+    //   }
+    // }
 
-    const genderList = [];
-    for (let i = 0; i < productGenders.length; i++) {
-      const prevGender = await this.productGenderRepository.findOne({
-        where: { gender: productGenders[i] },
-      });
+    // const genderList = [];
+    // for (let i = 0; i < genders.length; i++) {
+    //   const prevGender = await this.genderRepository.findOne({
+    //     where: { genderName: genders[i] },
+    //   });
 
-      if (prevGender) genderList.push(prevGender);
-      else {
-        const newGender = await this.productGenderRepository.save({
-          gender: productGenders[i],
-        });
-        genderList.push(newGender);
-      }
-    }
+    //   if (prevGender) genderList.push(prevGender);
+    //   else {
+    //     const newGender = await this.genderRepository.save({
+    //       genderName: genders[i],
+    //     });
+    //     genderList.push(newGender);
+    //   }
+    // }
 
     const result = await this.productsRepository.save({
       ...product,
-      productBrand: { id: productBrandId },
-      productSeason: { id: productSeasonId },
+      brand: { id: brandId },
+      season: { id: seasonId },
       productSubCategory: { id: productSubCategoryId },
-      productMaterials: materialList,
-      productColors: colorList,
-      productGenders: genderList,
-      productSizes: sizeList,
+      // materials: materialList,
+      // colors: colorList,
+      // genders: genderList,
+      // sizes: sizeList,
     });
 
     return result;
@@ -157,17 +157,18 @@ export class ProductsService {
       where: { id: productId },
     });
 
-    if (!product.isStock)
-      throw new UnprocessableEntityException('이미 판매 완료된 상품입니다.');
+    // if (!product.isStock) {
+    //   throw new UnprocessableEntityException('이미 판매 완료된 상품입니다.');
+    // }
   }
 
   async update({ productId, updateProductInput }) {
-    const currentProduct = await this.productsRepository.findOne({
+    const originProductData = await this.productsRepository.findOne({
       where: { id: productId },
     });
 
     return this.productsRepository.save({
-      ...currentProduct,
+      ...originProductData,
       id: productId,
       ...updateProductInput,
     });

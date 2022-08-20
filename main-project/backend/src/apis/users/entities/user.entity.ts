@@ -2,7 +2,7 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { ProductBasket } from 'src/apis/baskets/entities/productBasket.entity';
 import {
   Column,
-  DeleteDateColumn,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToOne,
@@ -16,46 +16,43 @@ export class User {
   @Field(() => String)
   id: string;
 
-  @Column({ default: false })
+  @Column({ default: 0 })
   @Field(() => Boolean)
   isAdmin: boolean;
 
   @Column()
   @Field(() => String)
-  name: string;
+  userName: string;
 
   @Column()
   @Field(() => String)
-  phonenumber: string;
+  userPhone: string;
 
   @Column()
   @Field(() => String)
-  email: string;
+  userEmail: string;
+
+  @Column()
+  //@Field(() => String)
+  userPassword: string;
 
   @Column()
   @Field(() => String)
-  address: string;
+  userAddress: string;
 
   @Column()
   @Field(() => String)
-  gender: string;
+  userGender: string;
 
   @Column()
-  password: string;
+  @Field(() => String)
+  userResidentNumber: string;
 
   @Column({ default: 0 })
   @Field(() => Int)
   point: number;
 
-  @Column()
-  @Field(() => String)
-  residentregistrationnumber: string;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
-
-  // @JoinColumn()
-  // @OneToOne(() => ProductBasket)
-  // @Field(() => ProductBasket)
-  // basket: ProductBasket;
+  @CreateDateColumn()
+  @Field(() => Date)
+  createdAt: Date;
 }

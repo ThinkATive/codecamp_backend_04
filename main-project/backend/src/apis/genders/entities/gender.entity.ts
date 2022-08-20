@@ -1,19 +1,28 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Product } from 'src/apis/products/entities/product.entity';
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  DeleteDateColumn,
+  Entity,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 @ObjectType()
-export class ProductGender {
+export class Gender {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => String)
   id: string;
 
   @Column()
   @Field(() => String)
-  gender: string;
+  genderName: string;
 
-  @ManyToMany(() => Product, (products) => products.productGenders)
-  @Field(() => [Product])
-  products: Product[];
+  @DeleteDateColumn()
+  deletedAt: Date;
+
+  // @ManyToMany(() => Product, (products) => products.genders)
+  // @Field(() => [Product])
+  // products: Product[];
 }

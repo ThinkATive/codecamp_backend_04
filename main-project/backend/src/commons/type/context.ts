@@ -12,12 +12,12 @@ export interface IContext {
 
 export interface IOAuthUser {
   user: {
-    name: string;
-    phonenumber: string;
-    email: string;
-    address: string;
-    gender: string;
+    userName: string;
+    userPhone: string;
+    userEmail: string;
+    userAddress: string;
+    userGender: string;
     hashedPassword: string;
-    residentregistrationnumber: string;
+    userResidentNumber: string;
   };
 }

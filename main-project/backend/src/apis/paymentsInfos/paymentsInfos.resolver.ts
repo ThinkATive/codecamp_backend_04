@@ -3,7 +3,7 @@ import {
   UnprocessableEntityException,
   UseGuards,
 } from '@nestjs/common';
-import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Context, Int, Mutation, Resolver } from '@nestjs/graphql';
 import { GqlAuthAccessGuard } from 'src/commons/auth/gql-auth.guard';
 import { IContext } from 'src/commons/type/context';
 import { IamportService } from '../iamport/iamport.service';
@@ -16,11 +16,6 @@ export class PaymentsInfosResolver {
     private readonly paymentsInfosService: PaymentsInfosService,
     private readonly iamportService: IamportService,
   ) {}
-
-  @Query(() => [PaymentInfo])
-  async fetchPaymentInfos() {
-    return await this.paymentsInfosService.findAll();
-  }
 
   @UseGuards(GqlAuthAccessGuard)
   @Mutation(() => PaymentInfo)

@@ -20,15 +20,15 @@ export class UsersService {
     return this.userRepository.find();
   }
 
-  findOne({ userId }) {
+  findOneById({ userId }) {
     return this.userRepository.findOne({
       where: { id: userId },
     });
   }
 
-  findOneForLogin({ email }) {
+  findOneByEmail({ userEmail }) {
     return this.userRepository.findOne({
-      where: { email },
+      where: { userEmail },
     });
   }
 
@@ -39,27 +39,27 @@ export class UsersService {
   }
 
   async create({
-    name,
-    phonenumber,
-    email,
-    address,
-    gender,
-    hashedPassword: password,
-    residentregistrationnumber,
+    userName,
+    userPhone,
+    userEmail,
+    userAddress,
+    userGender,
+    hashedPassword: userPassword,
+    userResidentNumber,
   }) {
-    const user = await this.userRepository.findOne({ where: { email } });
+    const user = await this.userRepository.findOne({ where: { userEmail } });
 
     if (user) throw new ConflictException('이미 등록된 이메일입니다.');
     //throw new HttpException('이미 등록된 이메일입니다.', HttpStatus.CONFLICT); //이것도 가능
 
     return this.userRepository.save({
-      name,
-      phonenumber,
-      email,
-      address,
-      gender,
-      password,
-      residentregistrationnumber,
+      userName,
+      userPhone,
+      userEmail,
+      userAddress,
+      userGender,
+      userPassword,
+      userResidentNumber,
     });
   }
 
@@ -81,15 +81,6 @@ export class UsersService {
       id: userId,
       ...updateUserInput,
     });
-  }
-
-  async updatePWD({ userId, newHashedPassword: newPassword }) {
-    const user = await this.userRepository.findOne({ where: { id: userId } });
-    this.userRepository.save({
-      ...user,
-      password: newPassword,
-    });
-    return '비밀번호 변경 완료!';
   }
 
   async delete({ userId }) {

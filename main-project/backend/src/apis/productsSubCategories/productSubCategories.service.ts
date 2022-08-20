@@ -7,18 +7,28 @@ import { ProductSubCategory } from './entities/productSubCategory.entity';
 export class ProductSubCategoriesService {
   constructor(
     @InjectRepository(ProductSubCategory)
-    private readonly productSubCategoryRepository: Repository<ProductSubCategory>,
+    private readonly productSubCategoriesRepository: Repository<ProductSubCategory>,
   ) {}
+
+  findAll() {
+    return this.productSubCategoriesRepository.find();
+  }
+
+  findOne({ productSubCategoryId }) {
+    return this.productSubCategoriesRepository.findOne({
+      where: { id: productSubCategoryId },
+    });
+  }
+
   async create({ createProductSubCategoryInput }) {
     // DB에 카테고리 등록
     const { productMainCategoryId, ...productSubCategory } =
       createProductSubCategoryInput;
 
-    const result = await this.productSubCategoryRepository.save({
+    const result = await this.productSubCategoriesRepository.save({
       ...productSubCategory,
       productMainCategory: { id: productMainCategoryId },
     });
-    console.log(result);
     return result;
   }
 }

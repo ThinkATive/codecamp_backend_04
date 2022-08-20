@@ -17,13 +17,13 @@ export class JwtGoogleStrategy extends PassportStrategy(Strategy, 'google') {
     console.log(profile);
 
     return {
-      name: profile.displayName,
-      phonenumber: '010-1122-3344',
-      email: profile.emails[0].value,
-      address: '어딘가',
-      gender: '여',
+      userName: profile.displayName,
+      userPhone: '010-1122-3344',
+      userEmail: profile.emails[0].value,
+      userAddress: '어딘가',
+      userGender: '여',
       hashedPassword: '1234',
-      residentregistrationnumber: '23948239',
+      userResidentNumber: '23948239',
     };
   }
 }

@@ -17,10 +17,10 @@ export class DeliveryCondition {
 
   @Column()
   @Field(() => String)
-  deliverycondition: string;
+  deliveryCondition: string;
 
   @JoinColumn()
   @OneToOne(() => DeliveryServiceCompany)
   @Field(() => DeliveryServiceCompany)
-  deliveryservicecompany: DeliveryServiceCompany;
+  deliveryServiceCompany: DeliveryServiceCompany;
 }

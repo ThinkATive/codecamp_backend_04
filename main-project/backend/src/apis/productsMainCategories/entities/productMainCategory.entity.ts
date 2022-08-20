@@ -1,5 +1,10 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 @ObjectType()
@@ -11,4 +16,7 @@ export class ProductMainCategory {
   @Column({ unique: true })
   @Field(() => String)
   productMainCategoryName: string;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 }

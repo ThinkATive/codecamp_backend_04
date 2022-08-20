@@ -1,16 +1,52 @@
+import {
+  CACHE_MANAGER,
+  Inject,
+  UnprocessableEntityException,
+} from '@nestjs/common';
+import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CreateProductInput } from './dto/createProduct.input';
 import { UpdateProductInput } from './dto/updateProduct.input';
 import { Product } from './entities/product.entity';
 import { ProductsService } from './products.service';
+import { Cache } from 'cache-manager';
 
 @Resolver()
 export class ProductsResolver {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(
+    private readonly productsService: ProductsService,
+    private readonly elasticsearchService: ElasticsearchService,
+
+    @Inject(CACHE_MANAGER)
+    private readonly cacheManager: Cache,
+  ) {}
 
   @Query(() => [Product])
-  fetchProducts() {
-    return this.productsService.findAll();
+  async fetchProducts(
+    @Args({ name: 'search', nullable: true }) search: string, //
+  ) {
+    const findCache = await this.cacheManager.get(search);
+
+    if (findCache) return findCache;
+
+    const loadElastic = await this.elasticsearchService.search({
+      index: 'myproduct',
+      query: {
+        match: {
+          name: {
+            query: search,
+            operator: 'and',
+          },
+        },
+      },
+    });
+
+    const products = loadElastic.hits.hits.map((ele) => ele._source);
+
+    await this.cacheManager.set(search, products, { ttl: 5 * 60 });
+
+    return products;
+    // return this.productsService.findAll();
   }
 
   @Query(() => Product)

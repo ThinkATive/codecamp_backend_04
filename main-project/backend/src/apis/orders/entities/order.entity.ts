@@ -5,6 +5,7 @@ import { Product } from 'src/apis/products/entities/product.entity';
 import { User } from 'src/apis/users/entities/user.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   JoinTable,
@@ -37,9 +38,9 @@ export class Order {
   @Field(() => String)
   orderPhone: string;
 
-  @Column()
+  @CreateDateColumn()
   @Field(() => Date)
-  orderDate: Date;
+  createdAt: Date;
 
   @Column()
   @Field(() => String)
@@ -62,8 +63,8 @@ export class Order {
   @Field(() => PaymentInfo)
   paymentInfo: PaymentInfo;
 
-  @JoinTable()
-  @ManyToMany(() => Product, (products) => products.orders)
-  @Field(() => [Product])
-  products: Product[];
+  // @JoinTable()
+  // @ManyToMany(() => Product, (products) => products.orders)
+  // @Field(() => [Product])
+  // products: Product[];
 }

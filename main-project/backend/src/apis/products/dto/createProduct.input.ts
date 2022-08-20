@@ -4,42 +4,42 @@ import { Min } from 'class-validator';
 @InputType()
 export class CreateProductInput {
   @Field(() => String)
-  productName: string;
+  name: string;
 
   @Min(0)
   @Field(() => Int)
-  productPrice: number;
+  price: number;
 
   @Field(() => String)
-  productDescription: string;
+  description: string;
 
-  @Field(() => String)
-  productSerialNumber: string;
+  // @Field(() => String)
+  // productSerialNumber: string;
 
-  @Field(() => Int)
-  productDiscount: number;
+  // @Field(() => Int)
+  // productDiscount: number;
 
-  @Field(() => Date)
-  productManufactureDate: Date;
+  // @Field(() => Date)
+  // productManufactureDate: Date;
 
-  @Field(() => String)
-  productBrandId: string;
+  // @Field(() => String)
+  // brandId: string;
 
-  @Field(() => String)
-  productSeasonId: string;
+  // @Field(() => String)
+  // seasonId: string;
 
-  @Field(() => String)
-  productSubCategoryId: string;
+  // @Field(() => String)
+  // productSubCategoryId: string;
 
-  @Field(() => [String])
-  productMaterials: string[];
+  // @Field(() => [String])
+  // materials: string[];
 
-  @Field(() => [String])
-  productColors: string[];
+  // @Field(() => [String])
+  // colors: string[];
 
-  @Field(() => [String])
-  productSizes: string[];
+  // @Field(() => [String])
+  // sizes: string[];
 
-  @Field(() => [String])
-  productGenders: string[];
+  // @Field(() => [String])
+  // genders: string[];
 }
