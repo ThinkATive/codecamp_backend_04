@@ -22,11 +22,28 @@ type Size {
   sizeName: String!
 }
 
+type Brand {
+  id: String!
+  brandName: String!
+}
+
+type Season {
+  id: String!
+  seasonName: String!
+}
+
 type Product {
   id: String!
-  name: String!
-  price: Int!
-  description: String!
+  productName: String!
+  productPrice: Int!
+  productDescription: String!
+  productSerialNumber: String!
+  productDiscount: Int!
+  productPeopleLiked: Int!
+  isStock: Boolean!
+  productPeopleInterested: Boolean!
+  brand: Brand!
+  season: Season!
 }
 
 type ProductMainCategory {
@@ -40,21 +57,11 @@ type ProductSubCategory {
   productMainCategory: ProductMainCategory!
 }
 
-type Brand {
-  id: String!
-  brandName: String!
-}
-
 type ProductBasket {
   id: String!
   totalPrice: Int!
   numberOfProduct: Int!
   brandName: String
-}
-
-type Season {
-  id: String!
-  seasonName: String!
 }
 
 type User {
@@ -241,15 +248,23 @@ input CreateOrderInput {
 }
 
 input CreateProductInput {
-  name: String!
-  price: Int!
-  description: String!
+  productName: String!
+  productPrice: Int!
+  productDescription: String!
+  productSerialNumber: String!
+  productDiscount: Int!
+  brandId: String!
+  seasonId: String!
 }
 
 input UpdateProductInput {
-  name: String
-  price: Int
-  description: String
+  productName: String
+  productPrice: Int
+  productDescription: String
+  productSerialNumber: String
+  productDiscount: Int
+  brandId: String
+  seasonId: String
 }
 
 input CreateProductSubCategoryInput {

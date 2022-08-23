@@ -28,50 +28,50 @@ export class Product {
 
   @Column()
   @Field(() => String)
-  name: string;
+  productName: string;
 
   @Column()
   @Field(() => Int)
-  price: number;
+  productPrice: number;
 
   @Column()
   @Field(() => String)
-  description: string;
+  productDescription: string;
 
-  // @Column()
-  // @Field(() => String)
-  // productSerialNumber: string;
+  @Column()
+  @Field(() => String)
+  productSerialNumber: string;
 
-  // @Column({ default: 0 })
-  // @Field(() => Int)
-  // productDiscount: number;
+  @Column({ default: 0 })
+  @Field(() => Int)
+  productDiscount: number;
 
-  // @Column({ default: 0 })
-  // @Field(() => Int)
-  // productPeopleLiked: number;
+  @Column({ default: 0 })
+  @Field(() => Int)
+  productPeopleLiked: number;
 
   // @Column()
   // @Field(() => Date)
-  // productManufactureDate: Date;
+  // productManufacturedDate: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
 
-  // @Column({ default: true })
-  // @Field(() => Boolean)
-  // isStock: boolean;
+  @Column({ default: true })
+  @Field(() => Boolean)
+  isStock: boolean;
 
-  // @Column({ default: 0 })
-  // @Field(() => Boolean)
-  // productPeopleInterested: boolean;
+  @Column({ default: 0 })
+  @Field(() => Boolean)
+  productPeopleInterested: boolean;
 
-  // @ManyToOne(() => Brand)
-  // @Field(() => Brand)
-  // brand: Brand;
+  @ManyToOne(() => Brand)
+  @Field(() => Brand)
+  brand: Brand;
 
-  // @ManyToOne(() => Season)
-  // @Field(() => Season)
-  // season: Season;
+  @ManyToOne(() => Season)
+  @Field(() => Season)
+  season: Season;
 
   // @ManyToOne(() => ProductSubCategory)
   // @Field(() => ProductSubCategory)

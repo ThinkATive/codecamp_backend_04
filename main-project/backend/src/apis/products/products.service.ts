@@ -25,13 +25,13 @@ export class ProductsService {
   findAll() {
     return this.productsRepository.find({
       relations: [
-        'productSubCategory',
+        // 'productSubCategory',
         'brand',
         'season',
-        'materials',
-        `colors`,
-        `sizes`,
-        `genders`,
+        // 'materials',
+        // `colors`,
+        // `sizes`,
+        // `genders`,
       ],
     });
   }
@@ -43,10 +43,10 @@ export class ProductsService {
         'productSubCategory',
         'brand',
         'season',
-        'materials',
-        `colors`,
-        `sizes`,
-        `genders`,
+        // 'materials',
+        // `colors`,
+        // `sizes`,
+        // `genders`,
       ],
     });
   }
@@ -58,10 +58,10 @@ export class ProductsService {
         'productSubCategory',
         'brand',
         'season',
-        'materials',
-        `colors`,
-        `sizes`,
-        `genders`,
+        // 'materials',
+        // `colors`,
+        // `sizes`,
+        // `genders`,
       ],
     });
   }
@@ -70,11 +70,11 @@ export class ProductsService {
     const {
       brandId,
       seasonId,
-      productSubCategoryId,
-      materials,
-      colors,
-      sizes,
-      genders,
+      // productSubCategoryId,
+      // materials,
+      // colors,
+      // sizes,
+      // genders,
       ...product
     } = createProductInput;
 
@@ -142,7 +142,7 @@ export class ProductsService {
       ...product,
       brand: { id: brandId },
       season: { id: seasonId },
-      productSubCategory: { id: productSubCategoryId },
+      // productSubCategory: { id: productSubCategoryId },
       // materials: materialList,
       // colors: colorList,
       // genders: genderList,

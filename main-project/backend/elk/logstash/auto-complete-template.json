@@ -27,11 +27,11 @@
   },
   "mappings": {
     "properties": {
-      "name": {
+      "productName": {
         "type": "text",
         "analyzer": "auto_complete_analyzer"
       },
-      "description": {
+      "productDescription": {
         "type": "text",
         "analyzer": "auto_complete_analyzer"
       }

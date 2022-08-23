@@ -26,25 +26,20 @@ export class ProductsResolver {
     @Args({ name: 'search', nullable: true }) search: string, //
   ) {
     const findCache = await this.cacheManager.get(search);
-
     if (findCache) return findCache;
-
     const loadElastic = await this.elasticsearchService.search({
       index: 'myproduct',
       query: {
         match: {
-          name: {
+          productName: {
             query: search,
             operator: 'and',
           },
         },
       },
     });
-
     const products = loadElastic.hits.hits.map((ele) => ele._source);
-
     await this.cacheManager.set(search, products, { ttl: 5 * 60 });
-
     return products;
     // return this.productsService.findAll();
   }

@@ -4,29 +4,29 @@ import { Min } from 'class-validator';
 @InputType()
 export class CreateProductInput {
   @Field(() => String)
-  name: string;
+  productName: string;
 
   @Min(0)
   @Field(() => Int)
-  price: number;
+  productPrice: number;
 
   @Field(() => String)
-  description: string;
+  productDescription: string;
 
-  // @Field(() => String)
-  // productSerialNumber: string;
+  @Field(() => String)
+  productSerialNumber: string;
 
-  // @Field(() => Int)
-  // productDiscount: number;
+  @Field(() => Int)
+  productDiscount: number;
 
   // @Field(() => Date)
-  // productManufactureDate: Date;
+  // productManufacturedDate: Date;
 
-  // @Field(() => String)
-  // brandId: string;
+  @Field(() => String)
+  brandId: string;
 
-  // @Field(() => String)
-  // seasonId: string;
+  @Field(() => String)
+  seasonId: string;
 
   // @Field(() => String)
   // productSubCategoryId: string;
