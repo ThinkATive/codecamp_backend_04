@@ -13,13 +13,13 @@ steps:
       - class/daily34/deploy-with-docker/backend/docker-compose.prod.yaml
       - push
 
-    # 3단계 => kubectl set image deployment/mybackend04-nestjs mybackend04-sha256-1=asia.gcr.io/mybackend04/mybackend04:1.7
+    # 3단계 => kubectl set image deployment/mybackend04-nestjs mybackend04-sha256-1=asia.gcr.io/mybackend04/mybackend04:1.8
   - name: gcr.io/cloud-builders/kubectl
     args:
       - set
       - image
       - deployment/mybackend04-nestjs
-      - mybackend04-sha256-1=asia.gcr.io/mybackend04/mybackend04:1.7
+      - mybackend04-sha256-1=asia.gcr.io/mybackend04/mybackend04:1.8
     env:
       - CLOUDSDK_COMPUTE_ZONE=asia-northeast3
       - CLOUDSDK_CONTAINER_CLUSTER=mybackend04-cluster-1
